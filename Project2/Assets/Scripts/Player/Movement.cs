@@ -4,83 +4,79 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class Movement : MonoBehaviour {
 
+    //Hovering up and down setting
     [SerializeField]
-    private float maxVelocity = 1f;
+    private float HorizontalSpeed = 2f;
     [SerializeField]
-    private float JumpForce = 10f;
+    private float VerticalSpeed = 2f;
     [SerializeField]
-    private float minAngularDrag = 0f;
+    private float Amplitude = 10f;
     [SerializeField]
-    private float maxAngularDrag = 50f;
+    private float minHeight = .5f;
+    [SerializeField]
+    private float maxHeight = 1f;
+    [SerializeField]
+    private float adjustmentSpeed = 15f; //used to adjust the speed on repositioing uneven terrain
 
-    private Vector3 velocity = Vector3.zero;
-    private Vector3 rotation = Vector3.zero;
 
-    private bool isFalling = false;
+    //Hovering right and left setting
+    [SerializeField]
+    private bool sideHover = true;
+    [SerializeField]
+    private float sHorizontalSpeed = 2f;
+    [SerializeField]
+    private float sVerticalSpeed = 2f;
+    [SerializeField]
+    private float sAmplitude = 10f;
+
+    [SerializeField]
+    private float TurnSpeed = 2f;
 
     private Rigidbody rb;
-	
-	void Start () {
 
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
-	}
-	//cleanup
+    }
+
     void FixedUpdate()
     {
-        float vInput = Input.GetAxis("Vertical");
-        float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxisRaw("Vertical");
+        float hInput = Input.GetAxisRaw("Horizontal");
 
+        //Hovering up and down
         Vector3 _movVertical = transform.right * vInput;
+        Vector3 _hover = transform.up * Mathf.Sin(Time.realtimeSinceStartup * VerticalSpeed) * Amplitude;
 
-        rb.MovePosition(rb.position + _movVertical * maxVelocity * Time.deltaTime);
-        rb.angularVelocity = new Vector3(0f, hInput * 2f, 0f);
+        RaycastHit hit = new RaycastHit();
 
-        
-        if(Input.GetButton("Jump") && isFalling == false)
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
-            Vector3 _JumpForce = Vector3.up * JumpForce * Time.fixedDeltaTime;
-            rb.velocity= _JumpForce;
-
-            isFalling = true;
-            Debug.Log("Hello "+ _JumpForce);
-        }
-    }
-
-    void OnCollisionStay()
-    {
-        isFalling = false;
-    }
-
-    public void Move(Vector3 velocity)
-    {
-        this.velocity = velocity;
-    }
-
-    public void Turn(Vector3 rotation)
-    {
-        this.rotation = rotation;
-    }
-
-    private void PerformMove()
-    {
-        if (velocity != Vector3.zero)
-        {
-            rb.angularDrag = minAngularDrag;
-            rb.AddForce(velocity);
-
-            if (rb.velocity.magnitude > maxVelocity)
+            if (hit.distance < minHeight)
             {
-                Vector3 newVelocity = rb.velocity.normalized;
-                newVelocity *= maxVelocity;
-                rb.velocity = newVelocity;
+                _hover.y += hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
+            }
+            else if (hit.distance > maxHeight)
+            {
+                _hover.y -= hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
             }
         }
-        else
-            rb.angularDrag = maxVelocity;
-    }
 
-    private void PerformRotation()
-    {
-        transform.Rotate(rotation);
+
+        Vector3 movement = _movVertical + _hover;
+
+        //allow swaying side
+        if (_movVertical == Vector3.zero && sideHover)
+        {
+            Vector3 _sideSway = transform.forward * Mathf.Cos(Time.realtimeSinceStartup * sVerticalSpeed) * sAmplitude;
+            movement += _sideSway;
+        }
+
+        rb.MovePosition(rb.position + movement * HorizontalSpeed * Time.fixedDeltaTime);
+
+        //rotate the object
+        Vector3 turn = transform.up * hInput;
+        rb.angularVelocity = turn * TurnSpeed;
+
     }
 }
