@@ -44,23 +44,29 @@ public class Movement : MonoBehaviour {
         float vInput = Input.GetAxisRaw("Vertical");
         float hInput = Input.GetAxisRaw("Horizontal");
 
+        RaycastHit hit = new RaycastHit();
+        Physics.Raycast(transform.position, Vector3.down, out hit);
+
         //Hovering up and down
         Vector3 _movVertical = transform.right * vInput;
+        float sinValue = Mathf.Sin(Time.realtimeSinceStartup * VerticalSpeed) * Amplitude;
+        //float hovPos = Mathf.Clamp(sinValue, minHeight - hit.distance  , hit.distance - maxHeight );
+        //Vector3 _hover = transform.up * hovPos;
         Vector3 _hover = transform.up * Mathf.Sin(Time.realtimeSinceStartup * VerticalSpeed) * Amplitude;
 
-        RaycastHit hit = new RaycastHit();
 
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
-        {
-            if (hit.distance < minHeight)
-            {
-                _hover.y += hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
-            }
-            else if (hit.distance > maxHeight)
-            {
-                _hover.y -= hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
-            }
-        }
+
+        //if ()
+        //{
+        //    if (hit.distance < minHeight)
+        //    {
+        //        _hover.y += hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
+        //    }
+        //    else if (hit.distance > maxHeight)
+        //    {
+        //        _hover.y -= hit.distance * adjustmentSpeed * Time.fixedDeltaTime;
+        //    }
+        //}
 
 
         Vector3 movement = _movVertical + _hover;
