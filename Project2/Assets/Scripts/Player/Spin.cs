@@ -4,7 +4,7 @@ using System.Collections;
 public class Spin : MonoBehaviour {
 
     [SerializeField]
-    float speed = 2f;
+    float speed = 1.5f;
 
     void FixedUpdate()
     {

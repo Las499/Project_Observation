@@ -1,10 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\water_stuff\DynamicWater.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Environments\PickUpFlower.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\Movement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\water_stuff\DynamicWater.cs" Line="8" Column="5" />
+      <File FileName="Assets\Scripts\water_stuff\DynamicWater.cs" Line="1" Column="1" />
+      <File FileName="Assets\Editor\ImageEffects\ColorCorrectionLookupEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Player\Spin.cs" Line="18" Column="1" />
+      <File FileName="Assets\Scripts\Environments\BoatSetting.cs" Line="34" Column="17" />
+      <File FileName="Assets\Scripts\Environments\PickUpFlower.cs" Line="17" Column="127" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
