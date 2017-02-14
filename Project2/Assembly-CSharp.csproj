@@ -45,10 +45,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Environments\FlowerAttach.cs" />
-     <Compile Include="Assets\Scripts\Player\Attaching.cs" />
+     <Compile Include="Assets\Scripts\Environments\BoatSetting.cs" />
+     <Compile Include="Assets\Scripts\Environments\IslandTrigger.cs" />
+     <Compile Include="Assets\Scripts\Environments\SinkFloat.cs" />
      <Compile Include="Assets\Scripts\Player\Movement.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Player\Spin.cs" />
      <Compile Include="Assets\Scripts\water_stuff\DynamicWater.cs" />
      <Compile Include="Assets\Scripts\water_stuff\GlobalReferences.cs" />
      <Compile Include="Assets\Scripts\water_stuff\ResetCube.cs" />
