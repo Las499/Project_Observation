@@ -12,7 +12,6 @@ public class Spin : MonoBehaviour {
         float hInput = Input.GetAxisRaw("Horizontal");
 
         Vector3 vRot = Vector3.forward * vInput;
-        Vector3 hRot = Vector3.right * hInput;
-        transform.Rotate((vRot+hRot) * speed * Time.fixedDeltaTime);
+        transform.Rotate((vRot) * speed * Time.fixedDeltaTime);
     }
 }
